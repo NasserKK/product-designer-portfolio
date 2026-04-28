@@ -35,13 +35,12 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border" : ""
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border" : ""
+          }`}
       >
-        <nav className="flex items-center justify-between px-6 py-4 my-0 md:px-12 md:py-5">
+        <nav className="flex items-center justify-end px-6 py-4 my-0 md:px-12 md:py-5">
           {/* Logo */}
-          <a
+          {/* <a
             href="#"
             onClick={(e) => {
               e.preventDefault()
@@ -51,7 +50,7 @@ export function Navbar() {
           >
             <span className="font-mono text-xs tracking-widest text-muted-foreground">PORTFOLIO</span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-150 transition-transform duration-300" />
-          </a>
+          </a> */}
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center gap-8">
@@ -70,13 +69,13 @@ export function Navbar() {
           </ul>
 
           {/* Status Indicator */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* <div className="hidden md:flex items-center gap-3">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
             </span>
             <span className="font-mono text-xs tracking-wider text-muted-foreground">AVAILABLE FOR WORK</span>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <button

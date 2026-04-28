@@ -17,9 +17,9 @@ export function Hero() {
   return (
     <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#050505]">
       {/* 3D Sphere Background */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <SentientSphere />
-      </div>
+      </div> */}
 
       {/* Typography Overlay */}
       <motion.div style={{ opacity, scale }} className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 md:px-12 md:py-20">
@@ -31,9 +31,9 @@ export function Hero() {
         >
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">01 — DISCIPLINE</p>
           <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
-            SYSTEM
+            NASSER
             <br />
-            <span className="italic">ARCHITECT</span>
+            <span className="italic">KHALIL</span>
           </h2>
         </motion.div>
 
@@ -50,8 +50,8 @@ export function Hero() {
             whileTap={{ scale: 0.95 }}
             className="relative px-8 py-4 border border-white/20 rounded-full font-mono text-sm tracking-widest uppercase bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-colors duration-500"
           >
-            Initialize
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#2563eb] rounded-full animate-pulse" />
+            explore my Work
+            {/* <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#2563eb] rounded-full animate-pulse" /> */}
           </motion.button>
         </motion.div>
 
@@ -64,7 +64,7 @@ export function Hero() {
         >
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">02 — CRAFT</p>
           <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
-            INTERFACE
+            PRODUCT
             <br />
             <span className="italic">DESIGNER</span>
           </h2>
