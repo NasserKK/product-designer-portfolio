@@ -1,30 +1,12 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { projects } from "@/lib/projects"
 
 export function Works() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const springX = useSpring(mouseX, { stiffness: 150, damping: 20 })
-  const springY = useSpring(mouseY, { stiffness: 150, damping: 20 })
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect()
-      mouseX.set(e.clientX - rect.left)
-      mouseY.set(e.clientY - rect.top)
-    }
-  }
 
   const handleToggle = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index))
@@ -44,7 +26,7 @@ export function Works() {
       </motion.div>
 
       {/* Projects List */}
-      <div ref={containerRef} onMouseMove={handleMouseMove} className="relative">
+      <div className="relative">
         {projects.map((project, index) => {
           const isOpen = openIndex === index
 
@@ -57,8 +39,6 @@ export function Works() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               className="relative border-t border-white/10"
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
             >
               {/* Clickable Row */}
               <button
@@ -73,13 +53,9 @@ export function Works() {
                 </span>
 
                 {/* Title */}
-                <motion.h3
-                  className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight group-hover:text-white/70 transition-colors duration-300 flex-1"
-                  animate={{ x: hoveredIndex === index || isOpen ? 20 : 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
+                <h3 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight group-hover:text-white/70 transition-colors duration-300 flex-1">
                   {project.title}
-                </motion.h3>
+                </h3>
 
                 {/* Tags + Toggle Indicator */}
                 <div className="flex items-center gap-4 order-2 md:order-none shrink-0">
@@ -186,32 +162,7 @@ export function Works() {
           )
         })}
 
-        {/* Floating hover image — hidden when any accordion is open */}
-        {openIndex === null && (
-          <motion.div
-            className="pointer-events-none fixed top-0 left-0 w-72 aspect-[4/3] overflow-hidden z-50 hidden lg:block"
-            style={{
-              x: springX,
-              y: springY,
-              translateX: "-50%",
-              translateY: "-50%",
-            }}
-            animate={{
-              opacity: hoveredIndex !== null ? 1 : 0,
-              scale: hoveredIndex !== null ? 1 : 0.9,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {hoveredIndex !== null && (
-              <img
-                src={projects[hoveredIndex].image}
-                alt=""
-                className="w-full h-full object-cover"
-                style={{ filter: "grayscale(60%) contrast(1.2)" }}
-              />
-            )}
-          </motion.div>
-        )}
+
       </div>
     </section>
   )
