@@ -24,7 +24,7 @@ const projects: Project[] = [
   {
     title: "From Manual Processes to Digital Experience",
     tags: ["UX", "UI", "User Research"],
-    image: "/abstract-neural-network-visualization-dark-theme.jpg",
+    image: "/rchlo.png",
     year: "2025",
     description:
       "A legacy quality-control workflow in the textile operations of Riachuelo relied entirely on paper forms across factories in Brazil and China — introducing frequent errors, delays, and inconsistencies in reporting.",
@@ -196,11 +196,11 @@ export function Works() {
                     {/* Tier 1 — Image / Short intro / Metrics */}
                     <div className="pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                       {/* Case Image */}
-                      <div className="aspect-[4/3] overflow-hidden">
+                      <div className="aspect-[16/9] overflow-hidden">
                         <motion.img
                           src={project.image}
                           alt={`${project.title} case study`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-fit"
                           initial={{ scale: 1.1 }}
                           animate={{ scale: 1 }}
                           transition={{ duration: 0.6 }}
