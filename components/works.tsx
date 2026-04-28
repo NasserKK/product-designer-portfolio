@@ -48,6 +48,15 @@ const projects: Project[] = [
     year: "2024",
     description:
       "The client was migrating a 20-year-old desktop ERP system to a modern web stack. We built a token-based design system from scratch in Figma — covering color, typography, spacing, and 60+ components — enabling multiple product teams to ship consistently without constant design review bottlenecks.",
+    fullDescription: [
+      "As part of the migration of a legacy ERP system to a modern web architecture, the existing interface presented a major scalability challenge. Years of incremental development had resulted in a fragmented UI, with duplicated styles, conflicting patterns, and no shared foundation across products.",
+      "To understand the scale of the problem, our team conducted a detailed audit of the existing interface. The analysis revealed over 5,500 CSS rules and 13,000+ style declarations, exposing significant inconsistencies across layout, spacing, typography, and color usage. This fragmentation increased development complexity, slowed delivery, and created constant misalignment between design and engineering.",
+      "Working as part of the design system team, I focused on identifying recurring patterns in the legacy interface and translating them into a consistent, reusable system. This included defining rules, standardizing UI patterns, and contributing to both the structure and behavior of new components.",
+      "We established a token-based foundation covering spacing, typography, color, and elevation — creating a shared source of truth across design, development, and QA. Building on this, I contributed to a library of base and complex components, defining not only their visual structure but also their interaction states and behavior, ensuring they were implementation-ready.",
+      "A key part of my role was producing structured documentation used across teams, clearly describing how tokens and components should be applied. This documentation enabled developers and QA to consistently implement and validate UI without relying on continuous design input.",
+      "The system saw strong organic adoption across 5 product teams, largely because it simplified day-to-day work. By removing the need for developers to make ad-hoc design decisions and providing ready-to-use patterns, the design system significantly reduced friction in the development process.",
+      "Components and standards were actively reused in production, contributing to a 3x increase in development velocity and achieving 98% UI consistency across applications. By transforming a highly inconsistent legacy interface into a structured and scalable system, the design system became a critical foundation for the ERP migration — enabling faster delivery, improved collaboration, and long-term product consistency.",
+    ],
     metrics: [
       { value: "60+", label: "Components" },
       { value: "3x", label: "Dev Velocity" },
