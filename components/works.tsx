@@ -3,99 +3,14 @@
 import type React from "react"
 
 import { useState, useRef } from "react"
+import Link from "next/link"
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
-import { useLenis } from "lenis/react"
-
-type Metric = {
-  label: string
-  value: string
-}
-
-type Project = {
-  title: string
-  tags: string[]
-  image: string
-  year: string
-  description: string
-  fullDescription?: string[]
-  metrics: Metric[]
-}
-
-const projects: Project[] = [
-  {
-    title: "From Manual Processes to Digital Experience",
-    tags: ["UX", "UI", "User Research"],
-    image: "/rchlo.png",
-    year: "2025",
-    description:
-      "A legacy quality-control workflow in the textile operations of Riachuelo relied entirely on paper forms across factories in Brazil and China — introducing frequent errors, delays, and inconsistencies in reporting.",
-    fullDescription: [
-      "A legacy quality-control workflow in the textile operations of Riachuelo relied entirely on paper forms across factories in Brazil and China. Inspection data was manually recorded by factory inspectors and passed through multiple handoffs before reaching the BI team — introducing frequent errors, delays, and inconsistencies in reporting.",
-      "I conducted contextual inquiry on the factory floor, working closely with managers, inspectors, and operators to map the full lifecycle of a work order. The research uncovered a deeper issue beyond inefficiency: a systemic lack of trust in the data. Because inspection results could be easily altered or selectively reported, teams created informal verification steps, duplicating work and slowing down production.",
-      "Leading the end-to-end UX process, I translated these insights into a web-based inspection system designed primarily for tablet use on the factory floor. The solution replaced paper checklists with structured digital workflows and introduced validation mechanisms such as required fields, timestamping, and photo evidence to ensure data integrity at the point of entry.",
-      "Inspectors could complete checklists in real time, attaching photos and submitting standardized reports, while managers gained live visibility into each work order through a centralized dashboard. This created a fully traceable inspection process, reducing the possibility of manipulation and eliminating the need for redundant verification steps.",
-      "By redesigning both the interface and the underlying workflow, the system significantly improved operational efficiency and data reliability. Processing time decreased by 73%, over 12,000 users were onboarded across multiple facilities, and post-launch surveys reported a 4.8 satisfaction score, driven by increased speed, transparency, and confidence in the system.",
-    ],
-    metrics: [
-      { value: "73%", label: "Faster Processing" },
-      { value: "12k", label: "Users Onboarded" },
-      { value: "4.8", label: "Satisfaction Score" },
-    ],
-  },
-  {
-    title: "Design System to support a migration from desktop ERP to Web",
-    tags: ["Design System", "Figma"],
-    image: "/gize.png",
-    year: "2024",
-    description:
-      "The client was migrating a 20-year-old desktop ERP system to a modern web stack. We built a token-based design system from scratch in Figma — covering color, typography, spacing, and 60+ components — enabling multiple product teams to ship consistently without constant design review bottlenecks.",
-    fullDescription: [
-      "As part of the migration of a legacy ERP system to a modern web architecture, the existing interface presented a major scalability challenge. Years of incremental development had resulted in a fragmented UI, with duplicated styles, conflicting patterns, and no shared foundation across products.",
-      "To understand the scale of the problem, our team conducted a detailed audit of the existing interface. The analysis revealed over 5,500 CSS rules and 13,000+ style declarations, exposing significant inconsistencies across layout, spacing, typography, and color usage. This fragmentation increased development complexity, slowed delivery, and created constant misalignment between design and engineering.",
-      "Working as part of the design system team, I focused on identifying recurring patterns in the legacy interface and translating them into a consistent, reusable system. This included defining rules, standardizing UI patterns, and contributing to both the structure and behavior of new components.",
-      "We established a token-based foundation covering spacing, typography, color, and elevation — creating a shared source of truth across design, development, and QA. Building on this, I contributed to a library of base and complex components, defining not only their visual structure but also their interaction states and behavior, ensuring they were implementation-ready.",
-      "A key part of my role was producing structured documentation used across teams, clearly describing how tokens and components should be applied. This documentation enabled developers and QA to consistently implement and validate UI without relying on continuous design input.",
-      "The system saw strong organic adoption across 5 product teams, largely because it simplified day-to-day work. By removing the need for developers to make ad-hoc design decisions and providing ready-to-use patterns, the design system significantly reduced friction in the development process.",
-      "Components and standards were actively reused in production, contributing to a 3x increase in development velocity and achieving 98% UI consistency across applications. By transforming a highly inconsistent legacy interface into a structured and scalable system, the design system became a critical foundation for the ERP migration — enabling faster delivery, improved collaboration, and long-term product consistency.",
-    ],
-    metrics: [
-      { value: "60+", label: "Components" },
-      { value: "3x", label: "Dev Velocity" },
-      { value: "98%", label: "Brand Consistency" },
-      { value: "5", label: "Teams Served" },
-    ],
-  },
-  {
-    title: "SEO focused landing-page",
-    tags: ["Branding", "TypeScript", "Shadcn"],
-    image: "/law-firm.jpg",
-    year: "2026",
-    description:
-      "A Canadian immigration law firm needed to improve its online presence and attract qualified leads, particularly from Brazilian and broader Latino communities in Canada. The existing website suffered from poor SEO performance, low visibility in search results, and an outdated structure that failed to communicate credibility or convert visitors into clients.",
-    fullDescription: [
-      "A Canadian immigration law firm needed to improve its online presence and attract qualified leads, particularly from Brazilian and broader Latino communities in Canada. The existing website suffered from poor SEO performance, low visibility in search results, and an outdated structure that failed to communicate credibility or convert visitors into clients.",
-      "I redesigned the experience end-to-end, focusing on both SEO structure and user experience. A key strategic decision was to make the platform multilingual (Portuguese, English, and Spanish), allowing the firm to directly reach its target audience in their native language and significantly expand its organic reach.",
-      "From a content and UX perspective, the site was structured to prioritize clarity and trust. Instead of relying on complex legal terminology, the interface uses clear, direct language to explain immigration processes, reducing friction for users who may already feel uncertainty or stress. Service pages were organized around user intent, making it easier for visitors to quickly understand their options and next steps.",
-      "Conversion was centered around a primary CTA — \"Book Consultation\" — strategically placed throughout the experience. The flow was simplified to reduce friction, ensuring users could take action without navigating complex forms or unnecessary steps.",
-      "On the technical side, I built the application using Next.js with a strong focus on performance and SEO best practices. This included semantic HTML structure, optimized metadata, and structured content to improve indexing and ranking. Performance optimizations such as efficient asset loading and rendering strategies contributed to an excellent user experience across devices.",
-      "The result was a high-performing, search-optimized platform that achieved a perfect Lighthouse score (100/100 in performance, SEO, and best practices), with 96 in accessibility, and a 0.8s Largest Contentful Paint (LCP).",
-      "More importantly, the redesign delivered tangible business impact: +240% growth in organic traffic within 60 days, significantly increasing the firm's visibility and lead generation from its target audience.",
-    ],
-    metrics: [
-      { value: "100", label: "Lighthouse Score" },
-      { value: "+240%", label: "Organic Traffic" },
-      { value: "0.8s", label: "LCP" },
-    ],
-  },
-]
+import { projects } from "@/lib/projects"
 
 export function Works() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const [expandedReadIndex, setExpandedReadIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const rowRefs = useRef<(HTMLDivElement | null)[]>([])
-  const lenis = useLenis()
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -112,20 +27,7 @@ export function Works() {
   }
 
   const handleToggle = (index: number) => {
-    // Always collapse Tier 2 before switching or closing any row
-    setExpandedReadIndex(null)
     setOpenIndex((prev) => (prev === index ? null : index))
-    // Scroll to the clicked row so Lenis controls the viewport position,
-    // preventing the collapse of the previously open panel from jumping the page
-    const row = rowRefs.current[index]
-    if (row && lenis) {
-      lenis.scrollTo(row, { offset: -96, duration: 0.6, easing: (t) => 1 - Math.pow(1 - t, 3) })
-    }
-  }
-
-  const handleReadToggle = (e: React.MouseEvent, index: number) => {
-    e.stopPropagation()
-    setExpandedReadIndex((prev) => (prev === index ? null : index))
   }
 
   return (
@@ -145,13 +47,10 @@ export function Works() {
       <div ref={containerRef} onMouseMove={handleMouseMove} className="relative">
         {projects.map((project, index) => {
           const isOpen = openIndex === index
-          const isReadExpanded = expandedReadIndex === index
-          const hasFullText = Boolean(project.fullDescription?.length)
 
           return (
             <motion.div
               key={project.title}
-              ref={(el) => { rowRefs.current[index] = el }}
               id={`case-${index}`}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -206,7 +105,7 @@ export function Works() {
                 </div>
               </button>
 
-              {/* Accordion Panel */}
+              {/* Accordion Panel — Tier 1 only */}
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
@@ -216,11 +115,10 @@ export function Works() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{
                       height: { duration: 0.45, ease: [0.04, 0.62, 0.23, 0.98] },
-                      opacity: { duration: 0.15 },
+                      opacity: { duration: 0.2 },
                     }}
                     className="overflow-hidden"
                   >
-                    {/* Tier 1 — Image / Short intro / Metrics */}
                     <div className="pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                       {/* Case Image */}
                       <div className="aspect-[16/9] overflow-hidden">
@@ -241,22 +139,16 @@ export function Works() {
                           {project.description}
                         </p>
 
-                        {/* Read full case toggle — only if long text exists */}
-                        {hasFullText && (
-                          <button
-                            onClick={(e) => handleReadToggle(e, index)}
-                            className="self-start font-mono text-[11px] tracking-[0.2em] uppercase border-b border-white/30 pb-0.5 text-foreground hover:border-white transition-colors duration-200 focus:outline-none"
+                        {/* View case study link */}
+                        {project.fullDescription?.length ? (
+                          <Link
+                            href={`/work/${project.slug}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="self-start font-mono text-[11px] tracking-[0.2em] uppercase border-b border-white/30 pb-0.5 text-foreground hover:border-white transition-colors duration-200"
                           >
-                            {isReadExpanded ? "Collapse" : "Read full case"}&nbsp;
-                            <motion.span
-                              className="inline-block"
-                              animate={{ rotate: isReadExpanded ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
-                            >
-                              ↓
-                            </motion.span>
-                          </button>
-                        )}
+                            View case study →
+                          </Link>
+                        ) : null}
 
                         {/* Mobile tags */}
                         <div className="flex md:hidden gap-2 flex-wrap">
@@ -287,40 +179,6 @@ export function Works() {
                         </div>
                       </div>
                     </div>
-
-                    {/* Tier 2 — Full case study text */}
-                    <AnimatePresence initial={false}>
-                      {isReadExpanded && hasFullText && (
-                        <motion.div
-                          key="full-text"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{
-                            height: { duration: 0.45, ease: [0.04, 0.62, 0.23, 0.98] },
-                            opacity: { duration: 0.15 },
-                          }}
-                          className="overflow-hidden"
-                        >
-                          <div className="border-t border-white/10 pt-10 pb-12">
-                            {/* Narrow reading column centered or left-aligned under the text col */}
-                            <div className="max-w-2xl md:ml-[33.333%] space-y-6">
-                              <p className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase mb-8">
-                                Case Study
-                              </p>
-                              {project.fullDescription!.map((paragraph, i) => (
-                                <p
-                                  key={i}
-                                  className="font-sans text-sm md:text-base leading-relaxed text-muted-foreground"
-                                >
-                                  {paragraph}
-                                </p>
-                              ))}
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -328,38 +186,33 @@ export function Works() {
           )
         })}
 
-        {/* Floating Image — hidden when any accordion is open */}
-        <motion.div
-          className="absolute pointer-events-none z-50 w-64 h-40 md:w-80 md:h-48 overflow-hidden rounded-lg"
-          style={{
-            x: springX,
-            y: springY,
-            translateX: "-50%",
-            translateY: "-320%",
-          }}
-          animate={{
-            opacity: hoveredIndex !== null && openIndex === null ? 1 : 0,
-            scale: hoveredIndex !== null && openIndex === null ? 1 : 0.8,
-          }}
-          transition={{ duration: 0.2 }}
-        >
-          {hoveredIndex !== null && (
-            <motion.img
-              src={projects[hoveredIndex].image}
-              alt={projects[hoveredIndex].title}
-              className="w-full h-full object-cover"
-              initial={{ scale: 1.2 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.4 }}
-              style={{ filter: "grayscale(50%) contrast(1.1)" }}
-            />
-          )}
-          <div className="absolute inset-0 bg-[#2563eb]/10 mix-blend-overlay" />
-        </motion.div>
+        {/* Floating hover image — hidden when any accordion is open */}
+        {openIndex === null && (
+          <motion.div
+            className="pointer-events-none fixed top-0 left-0 w-72 aspect-[4/3] overflow-hidden z-50 hidden lg:block"
+            style={{
+              x: springX,
+              y: springY,
+              translateX: "-50%",
+              translateY: "-50%",
+            }}
+            animate={{
+              opacity: hoveredIndex !== null ? 1 : 0,
+              scale: hoveredIndex !== null ? 1 : 0.9,
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {hoveredIndex !== null && (
+              <img
+                src={projects[hoveredIndex].image}
+                alt=""
+                className="w-full h-full object-cover"
+                style={{ filter: "grayscale(60%) contrast(1.2)" }}
+              />
+            )}
+          </motion.div>
+        )}
       </div>
-
-      {/* Bottom Border */}
-      <div className="border-t border-white/10" />
     </section>
   )
 }
