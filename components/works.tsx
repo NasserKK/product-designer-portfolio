@@ -13,16 +13,16 @@ const projects = [
     year: "2025",
   },
   {
-    title: "Quantum Dashboard",
-    tags: ["React", "D3.js", "Python"],
-    image: "/futuristic-data-dashboard-dark-minimal.jpg",
+    title: "Design System to support a migration from desktop ERP to Web",
+    tags: ["Design System", "Figma"],
+    image: "/design-system.jpg",
     year: "2024",
   },
   {
-    title: "Synthetic Memory",
-    tags: ["TypeScript", "LangChain", "Vector DB"],
-    image: "/abstract-memory-storage-visualization.jpg",
-    year: "2023",
+    title: "SEO focused landing-page",
+    tags: ["Branding", "TypeScript", "Shadcn"],
+    image: "/law-firm.jpg",
+    year: "2026",
   }
 ]
 
