@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef } from "react"
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion"
+import { useLenis } from "lenis/react"
 
 type Metric = {
   label: string
@@ -93,6 +94,8 @@ export function Works() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [expandedReadIndex, setExpandedReadIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([])
+  const lenis = useLenis()
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -112,6 +115,12 @@ export function Works() {
     // Always collapse Tier 2 before switching or closing any row
     setExpandedReadIndex(null)
     setOpenIndex((prev) => (prev === index ? null : index))
+    // Scroll to the clicked row so Lenis controls the viewport position,
+    // preventing the collapse of the previously open panel from jumping the page
+    const row = rowRefs.current[index]
+    if (row && lenis) {
+      lenis.scrollTo(row, { offset: -96, duration: 0.6, easing: (t) => 1 - Math.pow(1 - t, 3) })
+    }
   }
 
   const handleReadToggle = (e: React.MouseEvent, index: number) => {
@@ -120,7 +129,7 @@ export function Works() {
   }
 
   return (
-    <section className="relative py-32 px-8 md:px-12 md:py-24" style={{ overflowAnchor: "none" }}>
+    <section className="relative py-32 px-8 md:px-12 md:py-24">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -142,6 +151,8 @@ export function Works() {
           return (
             <motion.div
               key={project.title}
+              ref={(el) => { rowRefs.current[index] = el }}
+              id={`case-${index}`}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -207,7 +218,6 @@ export function Works() {
                       height: { duration: 0.45, ease: [0.04, 0.62, 0.23, 0.98] },
                       opacity: { duration: 0.15 },
                     }}
-                    style={{ overflowAnchor: "none" }}
                     className="overflow-hidden"
                   >
                     {/* Tier 1 — Image / Short intro / Metrics */}
@@ -290,7 +300,6 @@ export function Works() {
                             height: { duration: 0.45, ease: [0.04, 0.62, 0.23, 0.98] },
                             opacity: { duration: 0.15 },
                           }}
-                          style={{ overflowAnchor: "none" }}
                           className="overflow-hidden"
                         >
                           <div className="border-t border-white/10 pt-10 pb-12">
