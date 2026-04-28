@@ -70,7 +70,16 @@ const projects: Project[] = [
     image: "/law-firm.jpg",
     year: "2026",
     description:
-      "A boutique law firm needed an online presence that conveyed authority without relying on clichéd stock photography. We built a performance-optimized landing page in Next.js with structured data, semantic HTML, and a custom component library — achieving a perfect Lighthouse score and a significant lift in organic search visibility within 60 days.",
+      "A Canadian immigration law firm needed to improve its online presence and attract qualified leads, particularly from Brazilian and broader Latino communities in Canada. The existing website suffered from poor SEO performance, low visibility in search results, and an outdated structure that failed to communicate credibility or convert visitors into clients.",
+    fullDescription: [
+      "A Canadian immigration law firm needed to improve its online presence and attract qualified leads, particularly from Brazilian and broader Latino communities in Canada. The existing website suffered from poor SEO performance, low visibility in search results, and an outdated structure that failed to communicate credibility or convert visitors into clients.",
+      "I redesigned the experience end-to-end, focusing on both SEO structure and user experience. A key strategic decision was to make the platform multilingual (Portuguese, English, and Spanish), allowing the firm to directly reach its target audience in their native language and significantly expand its organic reach.",
+      "From a content and UX perspective, the site was structured to prioritize clarity and trust. Instead of relying on complex legal terminology, the interface uses clear, direct language to explain immigration processes, reducing friction for users who may already feel uncertainty or stress. Service pages were organized around user intent, making it easier for visitors to quickly understand their options and next steps.",
+      "Conversion was centered around a primary CTA — \"Book Consultation\" — strategically placed throughout the experience. The flow was simplified to reduce friction, ensuring users could take action without navigating complex forms or unnecessary steps.",
+      "On the technical side, I built the application using Next.js with a strong focus on performance and SEO best practices. This included semantic HTML structure, optimized metadata, and structured content to improve indexing and ranking. Performance optimizations such as efficient asset loading and rendering strategies contributed to an excellent user experience across devices.",
+      "The result was a high-performing, search-optimized platform that achieved a perfect Lighthouse score (100/100 in performance, SEO, and best practices), with 96 in accessibility, and a 0.8s Largest Contentful Paint (LCP).",
+      "More importantly, the redesign delivered tangible business impact: +240% growth in organic traffic within 60 days, significantly increasing the firm's visibility and lead generation from its target audience.",
+    ],
     metrics: [
       { value: "100", label: "Lighthouse Score" },
       { value: "+240%", label: "Organic Traffic" },
