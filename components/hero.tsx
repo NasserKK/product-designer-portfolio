@@ -30,11 +30,12 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">01 — DISCIPLINE</p>
-          <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
+          <h2 className="font-sans text-7xl md:text-7xl lg:text-8xl font-light tracking-tight text-balance">
             NASSER
             <br />
             <span className="italic">KHALIL</span>
           </h2>
+
         </motion.div>
 
         {/* Center Button */}
@@ -63,7 +64,7 @@ export function Hero() {
           className="self-end text-right"
         >
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">02 — CRAFT</p>
-          <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
+          <h2 className="font-sans text-7xl md:text-7xl lg:text-8xl font-light tracking-tight text-balance">
             PRODUCT
             <br />
             <span className="italic">DESIGNER</span>
@@ -72,7 +73,7 @@ export function Hero() {
       </motion.div>
 
       {/* Scroll Indicator */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
@@ -86,7 +87,7 @@ export function Hero() {
           <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">Scroll</span>
           <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
         </motion.div>
-      </motion.div>
+      </motion.div> */}
     </section>
   )
 }
