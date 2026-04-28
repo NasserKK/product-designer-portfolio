@@ -44,7 +44,7 @@ const projects: Project[] = [
   {
     title: "Design System to support a migration from desktop ERP to Web",
     tags: ["Design System", "Figma"],
-    image: "/design-system.jpg",
+    image: "/gize.png",
     year: "2024",
     description:
       "The client was migrating a 20-year-old desktop ERP system to a modern web stack. We built a token-based design system from scratch in Figma — covering color, typography, spacing, and 60+ components — enabling multiple product teams to ship consistently without constant design review bottlenecks.",
