@@ -109,14 +109,9 @@ export function Works() {
   }
 
   const handleToggle = (index: number) => {
-    const scrollY = window.scrollY
     // Always collapse Tier 2 before switching or closing any row
     setExpandedReadIndex(null)
     setOpenIndex((prev) => (prev === index ? null : index))
-    // Restore scroll position after the layout shift settles
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: scrollY, behavior: "instant" })
-    })
   }
 
   const handleReadToggle = (e: React.MouseEvent, index: number) => {
@@ -125,7 +120,7 @@ export function Works() {
   }
 
   return (
-    <section className="relative py-32 px-8 md:px-12 md:py-24">
+    <section className="relative py-32 px-8 md:px-12 md:py-24" style={{ overflowAnchor: "none" }}>
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -208,7 +203,11 @@ export function Works() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+                    transition={{
+                      height: { duration: 0.45, ease: [0.04, 0.62, 0.23, 0.98] },
+                      opacity: { duration: 0.15 },
+                    }}
+                    style={{ overflowAnchor: "none" }}
                     className="overflow-hidden"
                   >
                     {/* Tier 1 — Image / Short intro / Metrics */}
@@ -287,7 +286,11 @@ export function Works() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+                          transition={{
+                            height: { duration: 0.45, ease: [0.04, 0.62, 0.23, 0.98] },
+                            opacity: { duration: 0.15 },
+                          }}
+                          style={{ overflowAnchor: "none" }}
                           className="overflow-hidden"
                         >
                           <div className="border-t border-white/10 pt-10 pb-12">
