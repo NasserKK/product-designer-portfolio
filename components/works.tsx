@@ -16,6 +16,7 @@ type Project = {
   image: string
   year: string
   description: string
+  fullDescription?: string[]
   metrics: Metric[]
 }
 
@@ -26,7 +27,14 @@ const projects: Project[] = [
     image: "/abstract-neural-network-visualization-dark-theme.jpg",
     year: "2025",
     description:
-      "A legacy operations workflow relied entirely on paper forms and manual handoffs between departments. We mapped every touchpoint through contextual inquiry, identified critical friction points, and redesigned the end-to-end flow as a web application — reducing processing time and eliminating transcription errors across three internal teams.",
+      "A legacy quality-control workflow in the textile operations of Riachuelo relied entirely on paper forms across factories in Brazil and China — introducing frequent errors, delays, and inconsistencies in reporting.",
+    fullDescription: [
+      "A legacy quality-control workflow in the textile operations of Riachuelo relied entirely on paper forms across factories in Brazil and China. Inspection data was manually recorded by factory inspectors and passed through multiple handoffs before reaching the BI team — introducing frequent errors, delays, and inconsistencies in reporting.",
+      "I conducted contextual inquiry on the factory floor, working closely with managers, inspectors, and operators to map the full lifecycle of a work order. The research uncovered a deeper issue beyond inefficiency: a systemic lack of trust in the data. Because inspection results could be easily altered or selectively reported, teams created informal verification steps, duplicating work and slowing down production.",
+      "Leading the end-to-end UX process, I translated these insights into a web-based inspection system designed primarily for tablet use on the factory floor. The solution replaced paper checklists with structured digital workflows and introduced validation mechanisms such as required fields, timestamping, and photo evidence to ensure data integrity at the point of entry.",
+      "Inspectors could complete checklists in real time, attaching photos and submitting standardized reports, while managers gained live visibility into each work order through a centralized dashboard. This created a fully traceable inspection process, reducing the possibility of manipulation and eliminating the need for redundant verification steps.",
+      "By redesigning both the interface and the underlying workflow, the system significantly improved operational efficiency and data reliability. Processing time decreased by 73%, over 12,000 users were onboarded across multiple facilities, and post-launch surveys reported a 4.8 satisfaction score, driven by increased speed, transparency, and confidence in the system.",
+    ],
     metrics: [
       { value: "73%", label: "Faster Processing" },
       { value: "12k", label: "Users Onboarded" },
@@ -65,6 +73,7 @@ const projects: Project[] = [
 export function Works() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [expandedReadIndex, setExpandedReadIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const mouseX = useMotionValue(0)
@@ -82,7 +91,19 @@ export function Works() {
   }
 
   const handleToggle = (index: number) => {
-    setOpenIndex((prev) => (prev === index ? null : index))
+    setOpenIndex((prev) => {
+      if (prev === index) {
+        // Closing — also collapse the read-more if open
+        setExpandedReadIndex(null)
+        return null
+      }
+      return index
+    })
+  }
+
+  const handleReadToggle = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation()
+    setExpandedReadIndex((prev) => (prev === index ? null : index))
   }
 
   return (
@@ -102,6 +123,8 @@ export function Works() {
       <div ref={containerRef} onMouseMove={handleMouseMove} className="relative">
         {projects.map((project, index) => {
           const isOpen = openIndex === index
+          const isReadExpanded = expandedReadIndex === index
+          const hasFullText = Boolean(project.fullDescription?.length)
 
           return (
             <motion.div
@@ -170,7 +193,8 @@ export function Works() {
                     transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
                     className="overflow-hidden"
                   >
-                    <div className="pb-10 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                    {/* Tier 1 — Image / Short intro / Metrics */}
+                    <div className="pb-8 pt-2 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                       {/* Case Image */}
                       <div className="aspect-[4/3] overflow-hidden">
                         <motion.img
@@ -184,13 +208,31 @@ export function Works() {
                         />
                       </div>
 
-                      {/* Description */}
-                      <div className="flex flex-col justify-center">
+                      {/* Short Description */}
+                      <div className="flex flex-col justify-center gap-6">
                         <p className="font-sans text-sm md:text-base leading-relaxed text-muted-foreground">
                           {project.description}
                         </p>
+
+                        {/* Read full case toggle — only if long text exists */}
+                        {hasFullText && (
+                          <button
+                            onClick={(e) => handleReadToggle(e, index)}
+                            className="self-start font-mono text-[11px] tracking-[0.2em] uppercase border-b border-white/30 pb-0.5 text-foreground hover:border-white transition-colors duration-200 focus:outline-none"
+                          >
+                            {isReadExpanded ? "Collapse" : "Read full case"}&nbsp;
+                            <motion.span
+                              className="inline-block"
+                              animate={{ rotate: isReadExpanded ? 180 : 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              ↓
+                            </motion.span>
+                          </button>
+                        )}
+
                         {/* Mobile tags */}
-                        <div className="flex md:hidden gap-2 flex-wrap mt-6">
+                        <div className="flex md:hidden gap-2 flex-wrap">
                           {project.tags.map((tag) => (
                             <span
                               key={tag}
@@ -218,6 +260,37 @@ export function Works() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Tier 2 — Full case study text */}
+                    <AnimatePresence initial={false}>
+                      {isReadExpanded && hasFullText && (
+                        <motion.div
+                          key="full-text"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="border-t border-white/10 pt-10 pb-12">
+                            {/* Narrow reading column centered or left-aligned under the text col */}
+                            <div className="max-w-2xl md:ml-[33.333%] space-y-6">
+                              <p className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase mb-8">
+                                Case Study
+                              </p>
+                              {project.fullDescription!.map((paragraph, i) => (
+                                <p
+                                  key={i}
+                                  className="font-sans text-sm md:text-base leading-relaxed text-muted-foreground"
+                                >
+                                  {paragraph}
+                                </p>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 )}
               </AnimatePresence>
