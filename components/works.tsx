@@ -109,13 +109,13 @@ export function Works() {
   }
 
   const handleToggle = (index: number) => {
-    setOpenIndex((prev) => {
-      if (prev === index) {
-        // Closing — also collapse the read-more if open
-        setExpandedReadIndex(null)
-        return null
-      }
-      return index
+    const scrollY = window.scrollY
+    // Always collapse Tier 2 before switching or closing any row
+    setExpandedReadIndex(null)
+    setOpenIndex((prev) => (prev === index ? null : index))
+    // Restore scroll position after the layout shift settles
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: scrollY, behavior: "instant" })
     })
   }
 
