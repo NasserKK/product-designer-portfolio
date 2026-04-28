@@ -16,7 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <SectionBlend />
-        <About />
+        {/* <About /> */}
         <Works />
         <TechMarquee />
         <Footer />

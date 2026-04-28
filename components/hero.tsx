@@ -29,7 +29,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">01 — DISCIPLINE</p>
+          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">PORTFOLIO</p>
           <h2 className="font-sans text-7xl md:text-7xl lg:text-8xl font-light tracking-tight text-balance">
             NASSER
             <br />
@@ -63,12 +63,12 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="self-end text-right"
         >
-          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">02 — CRAFT</p>
           <h2 className="font-sans text-7xl md:text-7xl lg:text-8xl font-light tracking-tight text-balance">
             PRODUCT
             <br />
             <span className="italic">DESIGNER</span>
           </h2>
+          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mt-2">LONDON, UK.</p>
         </motion.div>
       </motion.div>
 
