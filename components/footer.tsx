@@ -27,7 +27,7 @@ export function Footer() {
     <footer className="relative">
       {/* Main CTA */}
       <motion.a
-        href="mailto:hello@example.com"
+        href="mailto:nasserkhalil20@gmail.com"
         data-cursor-hover
         className="relative block overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
@@ -51,7 +51,7 @@ export function Footer() {
               }}
               transition={{ duration: 0.3 }}
             >
-              Let's <span className="italic">Collaborate</span>
+              Contact <span className="italic">Me</span>
             </motion.h2>
 
             <motion.div
@@ -71,17 +71,17 @@ export function Footer() {
       <div className="px-8 md:px-12 py-8 border-t border-white/10">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Local Time */}
-          <div className="font-mono text-xs tracking-widest text-muted-foreground">
+          {/* <div className="font-mono text-xs tracking-widest text-muted-foreground">
             <span className="mr-2">LOCAL TIME</span>
             <span className="text-white tabular-nums">{time}</span>
-          </div>
+          </div> */}
 
           {/* Links */}
           <div className="flex gap-8">
-            {["LinkedIn", "GitHub", "Twitter"].map((link) => (
+            {["LinkedIn"].map((link) => (
               <a
                 key={link}
-                href="#"
+                href="https://www.linkedin.com/in/nasser-khalil-40bbb5196/"
                 data-cursor-hover
                 className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300"
               >
