@@ -27,6 +27,7 @@ export function Footer() {
     <footer className="relative">
       {/* Main CTA */}
       <motion.a
+        id="contact"
         href="mailto:nasserkhalil20@gmail.com"
         data-cursor-hover
         className="relative block overflow-hidden"

@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 export function About() {
   return (
-    <section className="relative py-32 px-8 md:px-12 md:py-24 border-t border-white/10">
+    <section id="about" className="relative py-32 px-8 md:px-12 md:py-24 border-t border-white/10">
       {/* Section Label */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
