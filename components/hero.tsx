@@ -2,10 +2,19 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import { useLenis } from "lenis/react"
 import { SentientSphere } from "./sentient-sphere"
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null)
+  const lenis = useLenis()
+
+  const scrollToWorks = () => {
+    const target = document.getElementById("selected-works")
+    if (target && lenis) {
+      lenis.scrollTo(target, { offset: -80, duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 4) })
+    }
+  }
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -47,6 +56,7 @@ export function Hero() {
         >
           <motion.button
             data-cursor-hover
+            onClick={scrollToWorks}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="relative px-8 py-4 border border-white/20 rounded-full font-mono text-sm tracking-widest uppercase bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-colors duration-500"
