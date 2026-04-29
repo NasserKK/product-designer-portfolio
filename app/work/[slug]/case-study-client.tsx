@@ -38,7 +38,7 @@ export function CaseStudyClient({ project, prev, next }: Props) {
             <span>BACK</span>
           </Link>
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            Case Study
+            Real Case
           </p>
           <div className="flex gap-2 flex-wrap justify-end">
             {project.tags.map((tag) => (
