@@ -64,29 +64,29 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="relative"
+          className="relative flex justify-center md:justify-end"
         >
-          <div className="relative aspect-[3/4] overflow-hidden w-full max-w-[220px] md:max-w-[280px] md:ml-auto">
-            <img
-              src="/self.png?height=200&width=150"
-              alt="Nasser Khalil"
-              className="w-full h-full object-cover"
-              style={{ filter: "grayscale(30%) contrast(1.1)" }}
-            />
-            {/* Subtle overlay border */}
-            <div className="absolute inset-0 border border-white/10 pointer-events-none" />
-          </div>
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative w-[220px] h-[220px] md:w-[280px] md:h-[280px] rounded-full overflow-hidden ring-1 ring-white/10">
+              <img
+                src="/self.png"
+                alt="Nasser Khalil"
+                className="w-full h-full object-cover"
+                style={{ filter: "grayscale(30%) contrast(1.1)" }}
+              />
+            </div>
 
-          {/* Floating mono label bottom-left of image */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="mt-4 font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase"
-          >
-            Based in Brazil &mdash; Available Worldwide
-          </motion.p>
+            {/* Mono label below image */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase"
+            >
+              Based in Brazil &mdash; Available Worldwide
+            </motion.p>
+          </div>
         </motion.div>
       </div>
     </section>
