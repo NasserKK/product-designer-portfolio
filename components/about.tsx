@@ -66,9 +66,9 @@ export function About() {
           transition={{ duration: 0.8, delay: 0.25 }}
           className="relative"
         >
-          <div className="relative aspect-[3/4] overflow-hidden w-full max-w-sm md:max-w-none md:ml-auto">
+          <div className="relative aspect-[3/4] overflow-hidden w-full max-w-[220px] md:max-w-[280px] md:ml-auto">
             <img
-              src="/placeholder.svg?height=800&width=600"
+              src="/self.png?height=200&width=150"
               alt="Nasser Khalil"
               className="w-full h-full object-cover"
               style={{ filter: "grayscale(30%) contrast(1.1)" }}
