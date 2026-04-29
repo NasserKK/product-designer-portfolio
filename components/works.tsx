@@ -122,7 +122,7 @@ export function Works() {
                             onClick={(e) => e.stopPropagation()}
                             className="self-start font-mono text-[11px] tracking-[0.2em] uppercase border-b border-white/30 pb-0.5 text-foreground hover:border-white transition-colors duration-200"
                           >
-                            View case study →
+                            View project →
                           </Link>
                         ) : null}
 
