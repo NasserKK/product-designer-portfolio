@@ -1,66 +1,94 @@
 "use client"
 
-import { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-
-const statements = [
-  "I build products that think alongside humans.",
-  "Design systems that adapt and evolve.",
-  "Interfaces should feel inevitable.",
-  "Every interaction is a conversation.",
-  "Code is just crystallized thought.",
-]
+import { motion } from "framer-motion"
 
 export function About() {
-  const containerRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  })
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"])
-  const smoothX = useSpring(x, { stiffness: 100, damping: 30 })
-
   return (
-    <section ref={containerRef} className="relative py-32 overflow-hidden md:py-0">
-      {/* Section Header */}
+    <section className="relative py-32 px-8 md:px-12 md:py-24 border-t border-white/10">
+      {/* Section Label */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="px-8 md:px-12 mb-0 py-20"
+        className="mb-24"
       >
-        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">03 — PHILOSOPHY</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light italic">Stream of Consciousness</h2>
+        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground">ABOUT</p>
       </motion.div>
 
-      {/* Horizontal Scroll Container */}
-      <div className="relative flex items-center overflow-hidden py-0 gap-0 h-16">
-        <motion.div style={{ x: smoothX }} className="flex gap-16 md:gap-24 px-8 md:px-12 whitespace-nowrap">
-          {statements.map((statement, index) => (
-            <motion.p
-              key={index}
-              className="text-4xl md:text-6xl lg:text-7xl font-sans font-light tracking-tight text-white/90"
-              style={{
-                WebkitTextStroke: index % 2 === 0 ? "none" : "1px rgba(255,255,255,0.3)",
-                color: index % 2 === 0 ? "inherit" : "transparent",
-              }}
-            >
-              {statement}
-            </motion.p>
-          ))}
+      {/* Main content grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start">
+        {/* Left — Name + Description */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="flex flex-col gap-10"
+        >
+          <h2 className="font-sans text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[1.05] text-balance">
+            Nasser<br />
+            <span className="italic text-muted-foreground">Khalil</span>
+          </h2>
+
+          <div className="flex flex-col gap-6 max-w-lg">
+            <p className="font-sans text-base md:text-lg leading-relaxed text-muted-foreground">
+              Product Designer focused on the intersection of complexity and clarity. I work with companies navigating digital transformation — turning fragmented legacy systems into coherent, scalable experiences.
+            </p>
+            <p className="font-sans text-base md:text-lg leading-relaxed text-muted-foreground">
+              From enterprise ERPs to consumer-facing platforms, I bring structure to ambiguity: building design systems, defining interaction patterns, and shipping products that hold up under real-world pressure.
+            </p>
+          </div>
+
+          {/* Divider with role labels */}
+          <div className="flex flex-col gap-3 pt-2 border-t border-white/10">
+            {["Product Design", "Design Systems", "UX Strategy"].map((role, i) => (
+              <motion.div
+                key={role}
+                initial={{ opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 + i * 0.08 }}
+                className="flex items-center justify-between py-3 border-b border-white/10"
+              >
+                <span className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase">{role}</span>
+                <span className="font-mono text-xs text-white/20">0{i + 1}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Right — Photo */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="relative"
+        >
+          <div className="relative aspect-[3/4] overflow-hidden w-full max-w-sm md:max-w-none md:ml-auto">
+            <img
+              src="/placeholder.svg?height=800&width=600"
+              alt="Nasser Khalil"
+              className="w-full h-full object-cover"
+              style={{ filter: "grayscale(30%) contrast(1.1)" }}
+            />
+            {/* Subtle overlay border */}
+            <div className="absolute inset-0 border border-white/10 pointer-events-none" />
+          </div>
+
+          {/* Floating mono label bottom-left of image */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-4 font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase"
+          >
+            Based in Brazil &mdash; Available Worldwide
+          </motion.p>
         </motion.div>
       </div>
-
-      {/* Decorative Line */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="mt-16 mx-8 md:mx-12 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent origin-left"
-      />
     </section>
   )
 }
