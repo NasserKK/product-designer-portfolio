@@ -10,7 +10,6 @@ export function CustomCursor() {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-
     // Detect touch/mobile devices
     const mediaQuery = window.matchMedia("(hover: none) and (pointer: coarse)")
     setIsMobile(mediaQuery.matches)
@@ -55,7 +54,7 @@ export function CustomCursor() {
     }
   }, [])
 
-
+  // Don't render cursor on mobile
   if (isMobile) return null
 
   return (
@@ -71,6 +70,7 @@ export function CustomCursor() {
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
       />
+
       {/* Hover ring */}
       <motion.div
         className="fixed top-0 left-0 w-12 h-12 border border-white rounded-full pointer-events-none z-[10000] mix-blend-difference"
