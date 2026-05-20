@@ -55,6 +55,9 @@ export function CustomCursor() {
     }
   }, [])
 
+
+  if (isMobile) return null
+
   return (
     <>
       {/* Main cursor dot */}
