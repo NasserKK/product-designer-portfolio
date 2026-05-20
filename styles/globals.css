@@ -124,11 +124,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* Hide on mobile/tablet */
-@media (max-width: 768px) {
-
-  body {
-    cursor: auto;
-  }
-}

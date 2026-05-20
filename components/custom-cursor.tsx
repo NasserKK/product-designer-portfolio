@@ -7,8 +7,17 @@ export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+
+    // Detect touch/mobile devices
+    const mediaQuery = window.matchMedia("(hover: none) and (pointer: coarse)")
+    setIsMobile(mediaQuery.matches)
+
+    // Stop here on mobile
+    if (mediaQuery.matches) return
+
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
       setIsVisible(true)
