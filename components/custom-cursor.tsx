@@ -4,25 +4,32 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
 export function CustomCursor() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    const isMobile =
+      /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
+        navigator.userAgent
+      )
+
+    // Only enable on desktop
+    if (!isMobile) {
+      setMounted(true)
+    }
+  }, [])
+
+  // NEVER render on mobile
+  if (!mounted) return null
+
+  return <CursorContent />
+}
+
+function CursorContent() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
-    // Detect touch devices
-    const isTouchDevice =
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0
-
-    // Disable custom cursor on touch devices
-    if (isTouchDevice) {
-      setEnabled(false)
-      return
-    }
-
-    setEnabled(true)
-
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
       setIsVisible(true)
@@ -58,29 +65,23 @@ export function CustomCursor() {
     }
   }, [])
 
-  // Don't render on mobile/touch devices
-  if (!enabled) return null
-
   return (
     <>
-      {/* Main cursor dot */}
       <motion.div
         className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[10000] mix-blend-difference"
         animate={{
           x: position.x - 6,
           y: position.y - 6,
-          scale: isHovering ? 0 : 1,
-          opacity: isVisible ? 1 : 0,
+          scale: isHovering ? 0 : 5,
+          opacity: isVisible ? 1 : 1,
         }}
         transition={{
           type: "spring",
           stiffness: 500,
           damping: 28,
-          mass: 0.5,
         }}
       />
 
-      {/* Hover ring */}
       <motion.div
         className="fixed top-0 left-0 w-12 h-12 border border-white rounded-full pointer-events-none z-[10000] mix-blend-difference"
         animate={{
@@ -93,7 +94,6 @@ export function CustomCursor() {
           type: "spring",
           stiffness: 300,
           damping: 20,
-          mass: 0.8,
         }}
       />
     </>
