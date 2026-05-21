@@ -57,7 +57,7 @@ export function CustomCursor() {
   // Don't render cursor on mobile
   if (isMobile) return null
 
-  return (
+  if (isMobile == false) return (
     <>
       {/* Main cursor dot */}
       <motion.div
