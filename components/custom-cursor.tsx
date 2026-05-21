@@ -7,15 +7,21 @@ export function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
-    // Detect touch/mobile devices
-    const mediaQuery = window.matchMedia("(hover: none) and (pointer: coarse)")
-    setIsMobile(mediaQuery.matches)
+    // Detect touch devices
+    const isTouchDevice =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0
 
-    // Stop here on mobile
-    if (mediaQuery.matches) return
+    // Disable custom cursor on touch devices
+    if (isTouchDevice) {
+      setEnabled(false)
+      return
+    }
+
+    setEnabled(true)
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
@@ -27,16 +33,14 @@ export function CustomCursor() {
 
     const handleHoverStart = (e: MouseEvent) => {
       const target = e.target as HTMLElement
+
       if (target.closest("a, button, [data-cursor-hover]")) {
         setIsHovering(true)
       }
     }
 
-    const handleHoverEnd = (e: MouseEvent) => {
-      const target = e.target as HTMLElement
-      if (target.closest("a, button, [data-cursor-hover]")) {
-        setIsHovering(false)
-      }
+    const handleHoverEnd = () => {
+      setIsHovering(false)
     }
 
     window.addEventListener("mousemove", handleMouseMove)
@@ -54,10 +58,10 @@ export function CustomCursor() {
     }
   }, [])
 
-  // Don't render cursor on mobile
-  if (isMobile) return null
+  // Don't render on mobile/touch devices
+  if (!enabled) return null
 
-  if (isMobile == false) return (
+  return (
     <>
       {/* Main cursor dot */}
       <motion.div
@@ -65,10 +69,15 @@ export function CustomCursor() {
         animate={{
           x: position.x - 6,
           y: position.y - 6,
-          scale: isHovering ? 0 : 5,
+          scale: isHovering ? 0 : 1,
           opacity: isVisible ? 1 : 0,
         }}
-        transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
+        transition={{
+          type: "spring",
+          stiffness: 500,
+          damping: 28,
+          mass: 0.5,
+        }}
       />
 
       {/* Hover ring */}
@@ -80,7 +89,12 @@ export function CustomCursor() {
           scale: isHovering ? 1 : 0,
           opacity: isVisible ? 1 : 0,
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
+        transition={{
+          type: "spring",
+          stiffness: 300,
+          damping: 20,
+          mass: 0.8,
+        }}
       />
     </>
   )
