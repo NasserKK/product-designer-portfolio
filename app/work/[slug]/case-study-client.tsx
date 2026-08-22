@@ -22,6 +22,9 @@ const fadeUp = {
 }
 
 export function CaseStudyClient({ project, prev, next }: Props) {
+  const paragraphs = project.fullDescription ?? []
+  const pullQuoteAfter = paragraphs.length > 3 ? 2 : 1
+
   return (
     <SmoothScroll>
       <CustomCursor />
@@ -38,7 +41,7 @@ export function CaseStudyClient({ project, prev, next }: Props) {
             <span>BACK</span>
           </Link>
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase">
-            Real Case
+            Case Study
           </p>
           <div className="flex gap-2 flex-wrap justify-end">
             {project.tags.map((tag) => (
@@ -54,12 +57,7 @@ export function CaseStudyClient({ project, prev, next }: Props) {
 
         {/* Hero */}
         <section className="pt-40 pb-24 px-8 md:px-12">
-          <motion.div
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-          >
+          <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
             <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-6">
               {project.year}
             </p>
@@ -113,10 +111,10 @@ export function CaseStudyClient({ project, prev, next }: Props) {
           </div>
         </motion.section>
 
-        {/* Prose — two-column reading layout */}
-        <section className="px-8 md:px-12 pb-32">
+        {/* Prose */}
+        <section className="px-8 md:px-12 pb-16">
           <div className="max-w-3xl mx-auto space-y-8">
-            {/* Lead paragraph (description) */}
+            {/* Lead paragraph */}
             <motion.p
               custom={4}
               variants={fadeUp}
@@ -128,9 +126,9 @@ export function CaseStudyClient({ project, prev, next }: Props) {
               {project.description}
             </motion.p>
 
-            {project.fullDescription && (
+            {paragraphs.length > 0 && (
               <div className="pt-8 border-t border-white/10 space-y-7">
-                {project.fullDescription.map((paragraph, i) => (
+                {paragraphs.slice(0, pullQuoteAfter).map((paragraph, i) => (
                   <motion.p
                     key={i}
                     custom={i}
@@ -148,13 +146,103 @@ export function CaseStudyClient({ project, prev, next }: Props) {
           </div>
         </section>
 
+        {/* Pull Quote */}
+        {project.pullQuote && (
+          <section className="px-8 md:px-12 py-20 md:py-28">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
+              className="max-w-4xl mx-auto relative"
+            >
+              <span className="absolute -top-10 left-0 font-sans text-[8rem] md:text-[10rem] font-light leading-none text-white/[0.04] select-none pointer-events-none">
+                &ldquo;
+              </span>
+              <blockquote className="relative z-10">
+                <p className="font-sans text-2xl md:text-4xl lg:text-5xl font-light italic leading-snug text-foreground/90 text-balance">
+                  {project.pullQuote}
+                </p>
+                <div className="mt-8 h-px w-16 bg-white/20" />
+              </blockquote>
+            </motion.div>
+          </section>
+        )}
+
+        {/* Remaining paragraphs */}
+        {paragraphs.length > pullQuoteAfter && (
+          <section className="px-8 md:px-12 pb-16">
+            <div className="max-w-3xl mx-auto space-y-7">
+              {paragraphs.slice(pullQuoteAfter).map((paragraph, i) => (
+                <motion.p
+                  key={i}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-60px" }}
+                  className="font-sans text-base md:text-lg leading-relaxed text-muted-foreground"
+                >
+                  {paragraph}
+                </motion.p>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Testimonial Quote Block */}
+        {project.quote && (
+          <section className="px-8 md:px-12 py-16 md:py-24">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="max-w-3xl mx-auto border-t border-b border-white/10 py-14 md:py-20"
+            >
+              <div className="flex gap-4 items-start">
+                <span className="shrink-0 font-sans text-5xl md:text-6xl font-light text-white/10 leading-none mt-[-0.2em]">
+                  &ldquo;
+                </span>
+                <div>
+                  <p className="font-sans text-xl md:text-2xl font-light leading-relaxed text-foreground/85 text-balance">
+                    {project.quote}
+                  </p>
+                  {project.quoteAuthor && (
+                    <p className="mt-5 font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
+                      &mdash; {project.quoteAuthor}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </section>
+        )}
+
+        {/* CTA - Back to works */}
+        <section className="px-8 md:px-12 pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <Link
+              href="/#selected-works"
+              className="inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              <span className="h-px w-8 bg-white/20" />
+              View all projects
+              <span className="h-px w-8 bg-white/20" />
+            </Link>
+          </motion.div>
+        </section>
+
         {/* Case navigation */}
         <nav className="border-t border-white/10 px-8 md:px-12 py-16 flex items-center justify-between">
           {prev ? (
-            <Link
-              href={`/work/${prev.slug}`}
-              className="group flex flex-col gap-2"
-            >
+            <Link href={`/work/${prev.slug}`} className="group flex flex-col gap-2">
               <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground group-hover:text-foreground transition-colors duration-200">
                 ← PREV
               </span>
@@ -167,10 +255,7 @@ export function CaseStudyClient({ project, prev, next }: Props) {
           )}
 
           {next ? (
-            <Link
-              href={`/work/${next.slug}`}
-              className="group flex flex-col gap-2 text-right"
-            >
+            <Link href={`/work/${next.slug}`} className="group flex flex-col gap-2 text-right">
               <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground group-hover:text-foreground transition-colors duration-200">
                 NEXT →
               </span>

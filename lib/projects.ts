@@ -12,6 +12,9 @@ export type Project = {
   description: string
   fullDescription?: string[]
   metrics: Metric[]
+  quote?: string
+  quoteAuthor?: string
+  pullQuote?: string
 }
 
 export const projects: Project[] = [
@@ -35,6 +38,11 @@ export const projects: Project[] = [
       { value: "12k", label: "Users Onboarded" },
       { value: "4.8", label: "Satisfaction Score" },
     ],
+    quote:
+      "For the first time, we could trust the data coming from the factory floor. It changed how we made decisions.",
+    quoteAuthor: "Operations Manager, Riachuelo",
+    pullQuote:
+      "The real problem was never speed — it was trust. When data can be altered, every number becomes a question.",
   },
   {
     slug: "design-system",
@@ -59,6 +67,11 @@ export const projects: Project[] = [
       { value: "98%", label: "Brand Consistency" },
       { value: "5", label: "Teams Served" },
     ],
+    quote:
+      "It wasn't just a component library — it became the shared language between design and engineering.",
+    quoteAuthor: "Engineering Lead",
+    pullQuote:
+      "5,500 CSS rules. 13,000 style declarations. Years of small decisions compounding into a system no one could untangle — only replace.",
   },
   {
     slug: "law-firm",
@@ -82,6 +95,11 @@ export const projects: Project[] = [
       { value: "+240%", label: "Organic Traffic" },
       { value: "0.8s", label: "LCP" },
     ],
+    quote:
+      "Within two months, we went from invisible to the first result for immigration lawyers in our region.",
+    quoteAuthor: "Managing Partner",
+    pullQuote:
+      "The best legal websites don't sound like lawyers — they sound like answers.",
   },
 ]
 
