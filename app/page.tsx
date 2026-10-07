@@ -1,7 +1,7 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
-import { Works } from "@/components/works"
-import { About } from "@/components/about"
+import { FeaturedWork } from "@/components/featured-work"
+import { Experience } from "@/components/experience"
 import { TechMarquee } from "@/components/tech-marquee"
 import { Footer } from "@/components/footer"
 import { CustomCursor } from "@/components/custom-cursor"
@@ -16,8 +16,8 @@ export default function Home() {
       <main>
         <Hero />
         <SectionBlend />
-        <Works />
-        <About />
+        <FeaturedWork />
+        <Experience />
         <TechMarquee />
         <Footer />
       </main>

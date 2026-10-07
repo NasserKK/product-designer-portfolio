@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useLenis } from "lenis/react"
 
 const navLinks = [
-  { label: "Works", href: "#selected-works" },
-  { label: "About", href: "#about" },
+  { label: "Work", href: "#featured-work" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ]
 

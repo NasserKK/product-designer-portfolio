@@ -9,8 +9,8 @@ export function Hero() {
   const containerRef = useRef<HTMLElement>(null)
   const lenis = useLenis()
 
-  const scrollToWorks = () => {
-    const target = document.getElementById("selected-works")
+  const scrollToWork = () => {
+    const target = document.getElementById("featured-work")
     if (target && lenis) {
       lenis.scrollTo(target, { offset: -80, duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 4) })
     }
@@ -56,7 +56,7 @@ export function Hero() {
         >
           <motion.button
             data-cursor-hover
-            onClick={scrollToWorks}
+            onClick={scrollToWork}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="relative px-8 py-4 border border-white/20 rounded-full font-mono text-sm tracking-widest uppercase bg-transparent backdrop-blur-sm hover:bg-white hover:text-black transition-colors duration-500"
@@ -78,7 +78,10 @@ export function Hero() {
             <br />
             <span className="italic">DESIGNER</span>
           </h2>
-          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mt-2">LONDON, UK.</p>
+          <p className="mt-4 max-w-md font-sans text-base md:text-lg font-light leading-relaxed text-muted-foreground text-balance">
+            Turning complex systems into clear, trustworthy products.
+          </p>
+          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mt-6">LONDON, UK.</p>
         </motion.div>
       </motion.div>
 

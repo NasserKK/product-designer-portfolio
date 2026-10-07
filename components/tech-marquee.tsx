@@ -3,11 +3,10 @@
 import { motion } from "framer-motion"
 
 const techItems = [
-  "NEXT.JS",
-  "TYPESCRIPT",
   "FIGMA",
-  "AI",
-  "NODE.JS",
+  "CLAUDE",
+  "RUST",
+  "HTML/CSS/JS",
 ]
 
 function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?: "left" | "right" }) {
@@ -30,11 +29,11 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "white"
-              e.currentTarget.style.WebkitTextStroke = "none"
+              e.currentTarget.style.setProperty("-webkit-text-stroke", "none")
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = "transparent"
-              e.currentTarget.style.WebkitTextStroke = "1px rgba(255,255,255,0.3)"
+              e.currentTarget.style.setProperty("-webkit-text-stroke", "1px rgba(255,255,255,0.3)")
             }}
           >
             {item}
@@ -57,7 +56,7 @@ export function TechMarquee() {
         transition={{ duration: 0.8 }}
         className="px-8 md:px-12 mb-16"
       >
-        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">TECHNICAL SKILLS</p>
+        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">TOOLS & METHODS</p>
       </motion.div>
 
       {/* Marquee Rows */}

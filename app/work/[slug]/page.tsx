@@ -1,36 +1,30 @@
-import { notFound } from "next/navigation"
-import Link from "next/link"
+import { permanentRedirect } from "next/navigation"
 import type { Metadata } from "next"
-import { getProjectBySlug, projects } from "@/lib/projects"
-import { CaseStudyClient } from "./case-study-client"
+import { featuredProject } from "@/lib/projects"
+import { LocalMeetCaseStudy } from "./LocalMeetCaseStudy"
 
 type Props = {
   params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+  return [{ slug: featuredProject.slug }]
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const project = getProjectBySlug(slug)
-  if (!project) return {}
+  if (slug !== featuredProject.slug) return {}
   return {
-    title: `${project.title} — Case Study`,
-    description: project.description,
+    title: `${featuredProject.title} — Case Study`,
+    description: featuredProject.description,
   }
 }
 
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params
-  const project = getProjectBySlug(slug)
-  if (!project) notFound()
+  if (slug !== featuredProject.slug) {
+    permanentRedirect("/#experience")
+  }
 
-  // Find prev/next for navigation
-  const currentIndex = projects.findIndex((p) => p.slug === slug)
-  const prev = projects[currentIndex - 1] ?? null
-  const next = projects[currentIndex + 1] ?? null
-
-  return <CaseStudyClient project={project} prev={prev} next={next} />
+  return <LocalMeetCaseStudy project={featuredProject} prev={null} next={null} />
 }
