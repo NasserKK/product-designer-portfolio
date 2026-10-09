@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 const techItems = [
   "FIGMA",
   "CLAUDE",
-  "RUST",
+  "AI AGENTS",
   "HTML/CSS/JS",
 ]
 
